@@ -1,0 +1,146 @@
+:root {
+    --bg-color: #080808;
+    --text-main: #f0f0f0;
+    --accent: #EE4036; 
+    --glass: rgba(20, 20, 20, 0.9); /* Más oscuro para que se lea mejor el texto sobre el manuscrito */
+    --glass-border: rgba(238, 64, 54, 0.3);
+    --bar-height: 60px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Space Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+    padding-bottom: var(--bar-height);
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--bg-color); }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* --- CAPAS DE FONDO --- */
+.bg-layer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; background-size: cover; background-position: center; transition: opacity 1.5s ease-in-out; will-change: opacity; }
+
+.bg-noise { z-index: 999; opacity: 0.05; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"); }
+
+/* GRABADO: Visible en la Intro */
+.bg-engraving { 
+    background-image: url('../assets/img/engraving_bg.png'); 
+    opacity: 0.4; 
+    mix-blend-mode: screen; 
+    filter: invert(1) grayscale(100%) contrast(1.5); 
+}
+/* Se oculta al entrar */
+.bg-engraving.hidden { opacity: 0; }
+
+/* MANUSCRITO: Visible en el Formulario */
+.bg-handwriting { 
+    background-image: url('../assets/img/handwriting_bg.jpg'); 
+    opacity: 0; /* Oculto al inicio */
+    mix-blend-mode: exclusion; 
+    background-size: cover; 
+    filter: invert(1) contrast(1.5); 
+}
+/* FIX: Subimos opacidad a 0.6 para que SE VEA */
+.bg-handwriting.visible { opacity: 0.2; }
+
+/* --- INTRO SCREEN --- */
+#intro-screen { 
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(8,8,8,0.95) 90%);
+    display: flex; flex-direction: column; justify-content: center; align-items: center; 
+    z-index: 2000; transition: opacity 0.8s ease, visibility 0.8s ease; 
+}
+
+/* FIX: Aseguramos que el logo tenga dimensiones */
+.intro-logo-img {
+    display: block; /* Importante */
+    width: 300px; 
+    max-width: 80%; /* Para móviles */
+    height: auto;
+    margin: 0 auto 2rem auto; /* Centrado */
+    filter: drop-shadow(0 0 20px rgba(238, 64, 54, 0.6));
+}
+
+.intro-btn { background: transparent; border: 1px solid var(--text-main); color: var(--text-main); font-family: 'Syne', sans-serif; font-size: 1.2rem; padding: 1rem 3rem; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; margin-top: 1rem; }
+.intro-btn:hover { background: var(--accent); border-color: var(--accent); color: white; letter-spacing: 4px; box-shadow: 0 0 20px rgba(238, 64, 54, 0.4); }
+
+/* --- CONTENIDO --- */
+#main-content { opacity: 0; visibility: hidden; transition: opacity 1.5s ease; width: 100%; display: flex; flex-direction: column; align-items: center; }
+.hero-section { min-height: 100vh; width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 4rem 1rem; position: relative; }
+
+.logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 3rem; margin-bottom: 0.5rem; letter-spacing: -2px; text-transform: uppercase; background: linear-gradient(180deg, #fff, #aaa); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.subtitle { font-size: 0.9rem; opacity: 0.7; margin-bottom: 3rem; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); }
+
+/* --- TARJETA --- */
+.card-wrapper { background: var(--glass); border: 1px solid var(--glass-border); padding: 2rem; width: 100%; max-width: 450px; backdrop-filter: blur(5px); box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+.art-image { width: 100%; aspect-ratio: 1; object-fit: cover; filter: grayscale(100%) contrast(1.2); margin-bottom: 2rem; transition: filter 1s ease; border: 1px solid #333; }
+
+.input-group { position: relative; margin-bottom: 1.5rem; }
+input[type="email"], input[type="text"], input[type="tel"] { width: 100%; background: transparent; border: none; border-bottom: 2px solid #333; color: white; font-family: 'Space Mono', monospace; font-size: 1.1rem; padding: 10px 0; outline: none; transition: 0.3s; border-radius: 0; }
+input:focus { border-bottom-color: var(--accent); }
+::placeholder { color: #555; opacity: 1; font-style: italic; }
+
+.checkbox-wrapper { display: flex; gap: 10px; margin-bottom: 2rem; align-items: flex-start; }
+.checkbox-wrapper input { appearance: none; min-width: 18px; height: 18px; border: 1px solid #555; cursor: pointer; position: relative; margin-top: 3px; transition: 0.2s; }
+.checkbox-wrapper input:checked { background: var(--accent); border-color: var(--accent); }
+.checkbox-wrapper label { font-size: 0.75rem; color: #999; cursor: pointer; line-height: 1.4; }
+.checkbox-wrapper label:hover { color: #fff; }
+
+.submit-btn { width: 100%; background: transparent; border: 1px solid var(--text-main); color: var(--text-main); font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; padding: 1rem 0; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+.submit-btn:hover { background: var(--accent); border-color: var(--accent); color: white; box-shadow: 0 0 15px rgba(238, 64, 54, 0.3); }
+
+#success-view { display: none; text-align: center; animation: fadeIn 1s forwards; }
+.success-title { font-family: 'Syne'; color: var(--accent); margin-bottom: 1.5rem; }
+.download-btn { display: block; width: 100%; padding: 1rem; margin-bottom: 1rem; border: 1px solid var(--accent); color: var(--text-main); text-decoration: none; text-transform: uppercase; font-size: 0.9rem; transition: 0.3s; }
+.download-btn:hover { background: var(--accent); color: #fff; box-shadow: 0 0 15px rgba(238, 64, 54, 0.4); }
+.download-btn small { display: block; font-size: 0.7rem; opacity: 0.7; margin-top: 4px; }
+
+/* --- SPOTIFY FIX --- */
+.discography-section { width: 100%; max-width: 900px; padding: 4rem 1rem; margin-top: 2rem; border-top: 1px solid #222; }
+.section-title { font-family: 'Syne', sans-serif; font-size: 1.5rem; text-align: center; margin-bottom: 3rem; color: #666; text-transform: uppercase; letter-spacing: 2px; }
+.albums-grid { 
+    display: grid; 
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+    gap: 2rem; 
+    width: 100%;
+}
+
+.spotify-embed { 
+    border-radius: 12px; 
+    overflow: hidden; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); 
+    transition: transform 0.3s; 
+    position: relative; 
+    background: #000; 
+    min-height: 352px; /* FIX: Altura mínima forzada */
+}
+.spotify-embed:hover { transform: translateY(-5px); border: 1px solid var(--accent); }
+
+.spotify-embed iframe {
+    width: 100%;
+    height: 352px;
+    border: none;
+    display: block;
+}
+
+#ambient-bar { position: fixed; bottom: 0; left: 0; width: 100%; height: var(--bar-height); background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(10px); border-top: 1px solid rgba(238, 64, 54, 0.3); display: flex; align-items: center; justify-content: space-between; padding: 0 2rem; z-index: 1500; transform: translateY(100%); transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+#ambient-bar.visible { transform: translateY(0); }
+.track-info { font-family: 'Space Mono'; font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 10px; }
+.live-indicator { width: 8px; height: 8px; background-color: var(--accent); border-radius: 50%; box-shadow: 0 0 8px var(--accent); animation: pulse 2s infinite; opacity: 0; transition: opacity 0.3s; }
+.live-indicator.active { opacity: 1; }
+.control-btn { background: none; border: none; cursor: pointer; color: white; display: flex; align-items: center; gap: 8px; font-family: 'Syne'; font-size: 0.8rem; text-transform: uppercase; transition: color 0.3s; }
+.control-btn:hover { color: var(--accent); }
+.control-icon { width: 12px; height: 12px; fill: currentColor; }
+
+footer { padding: 2rem; opacity: 0.5; font-size: 0.8rem; text-align: center; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; box-shadow: 0 0 15px var(--accent); } 100% { opacity: 0.5; } }
+@media (max-width: 600px) { .logo { font-size: 2.2rem; } #ambient-bar { padding: 0 1rem; } .intro-logo-img { width: 80%; max-width: 250px; } }
