@@ -41,7 +41,7 @@ body {
 
 /* MANUSCRITO: Visible en el Formulario */
 .bg-handwriting { 
-    background-image: url('../assets/img/handwriting_bg.jpg'); 
+    background-image: url('../assets/img/handwriting_bg.jpeg'); 
     opacity: 0; /* Oculto al inicio */
     mix-blend-mode: exclusion; 
     background-size: cover; 

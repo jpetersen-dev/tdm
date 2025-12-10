@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teoría de Maicol | La Materia Prima</title>
+    <title>Teoría de Maicol | Lo Peor</title>
     
     <!-- FUENTES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,7 @@
     <div id="ambient-bar">
         <div class="track-info">
             <div class="live-indicator" id="live-dot"></div>
-            <span>Ambiente: Materia Prima (Inst)</span>
+            <span>Ambiente: Lo Peor (Inst)</span>
         </div>
         <button id="toggle-audio-btn" class="control-btn">
             <span id="btn-text">Pausar</span>
@@ -48,7 +48,7 @@
         <!-- SECCIÓN HERO -->
         <section class="hero-section">
             <h1 class="logo">Teoría de Maicol</h1>
-            <p class="subtitle">Materia Prima / Single 2024</p>
+            <p class="subtitle">Lo Peor / Single DIC 2025</p>
 
             <div class="card-wrapper">
                 <img src="assets/img/cover.jpg" alt="Carátula" class="art-image" id="art-image">
