@@ -18,7 +18,6 @@ const verifyCodeInput = document.getElementById('verify-code');
 const verifyError = document.getElementById('verify-error');
 const nameInput = document.getElementById('name');
 const emailInput = document.getElementById('email');
-
 const artImage = document.getElementById('art-image');
 const albumsGrid = document.getElementById('albums-grid');
 
@@ -26,27 +25,44 @@ const albumsGrid = document.getElementById('albums-grid');
 const engravingLayer = document.getElementById('engraving-layer');
 const handwritingLayer = document.getElementById('handwriting-layer');
 
-// --- ESTADO ---
 let fadeInterval;
-let isHoveringSpotify = false;
-const maxVolume = 0.8;
 let userEmail = "";
+const maxVolume = 0.8;
 
-// --- 1. CARGA DE ÁLBUMES ---
+// --- 1. EFECTO TINTA (Ink Reveal) ---
+// Usamos IntersectionObserver para activar el efecto cuando el elemento entra en pantalla
+const observerOptions = { threshold: 0.1 };
+const inkObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('.ink-effect').forEach(el => inkObserver.observe(el));
+
+// --- 2. PARALLAX ---
+// Movemos las capas de fondo en base al scroll
+window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    // Capa Grabado se mueve lento
+    engravingLayer.style.transform = `translateY(${scrolled * 0.2}px)`;
+    // Capa Manuscrito se mueve distinto
+    handwritingLayer.style.transform = `translateY(${scrolled * 0.1}px)`;
+});
+
+// --- 3. CARGA DE ÁLBUMES (Diseño Personalizado) ---
 async function loadAlbums() {
     try {
         const response = await fetch('api/albums.php');
         const data = await response.json(); 
-        
-        console.log("Respuesta Spotify:", data); // DEBUG
-
-        albumsGrid.innerHTML = ''; 
-        
-        // FIX: Detectar si 'items' viene dentro del objeto o es el objeto
         const albums = data.items ? data.items : data; 
 
+        albumsGrid.innerHTML = ''; 
+
         if (!Array.isArray(albums) || albums.length === 0) {
-            albumsGrid.innerHTML = '<p style="text-align:center; opacity:0.5;">No se encontraron archivos clasificados.</p>';
+            albumsGrid.innerHTML = '<p class="loading-text">No hay lanzamientos disponibles.</p>';
             return;
         }
 
@@ -54,61 +70,60 @@ async function loadAlbums() {
         albums.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
 
         albums.forEach(album => {
-            const embed = document.createElement('div');
-            embed.className = 'spotify-embed';
-            // Usamos innerHTML para inyectar el iframe
-            embed.innerHTML = `
-                <iframe 
-                    src="https://open.spotify.com/embed/album/${album.id}?utm_source=generator&theme=0" 
-                    width="100%" height="352" 
-                    frameBorder="0" 
-                    allowfullscreen="" 
-                    allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-                </iframe>
+            // Extraer año para mostrar
+            const releaseYear = album.release_date.split('-')[0];
+            const imageUrl = album.images[0]?.url || 'assets/img/logo_tdm.jpg';
+
+            const card = document.createElement('div');
+            card.className = 'album-card ink-effect'; // Añadimos efecto tinta a las tarjetas
+            
+            // Construimos HTML personalizado
+            card.innerHTML = `
+                <a href="${album.external_urls.spotify}" target="_blank">
+                    <img src="${imageUrl}" alt="${album.name}" class="album-art">
+                </a>
+                <h4 class="album-title">${album.name}</h4>
+                <span class="album-date">Lanzamiento: ${album.release_date}</span>
+                <a href="${album.external_urls.spotify}" target="_blank" class="album-link">Escuchar en Spotify ↗</a>
             `;
-            embed.addEventListener('mouseenter', () => isHoveringSpotify = true);
-            embed.addEventListener('mouseleave', () => isHoveringSpotify = false);
-            albumsGrid.appendChild(embed);
+            
+            albumsGrid.appendChild(card);
+            inkObserver.observe(card); // Observar la nueva tarjeta para animarla
         });
+
     } catch (error) {
         console.error("Error cargando discografía:", error);
-        albumsGrid.innerHTML = '<p style="text-align:center; opacity:0.5;">Conexión interrumpida.</p>';
+        albumsGrid.innerHTML = '<p class="loading-text">Conexión interrumpida con Spotify.</p>';
     }
 }
-loadAlbums(); 
+loadAlbums();
 
-// --- 2. DETECTOR PLAY SPOTIFY ---
-window.addEventListener('blur', () => {
-    if (isHoveringSpotify) {
-        console.log("Play Spotify.");
-        fadeAudioTo(0);
-        updatePlayerUI(false);
-    }
-});
-
-// --- 3. INTERACCIÓN INICIAL ---
+// --- 4. INTERACCIÓN INICIAL ---
 exploreBtn.addEventListener('click', () => {
+    // Iniciar audio
     audio.volume = 0;
     audio.play().then(() => {
         fadeAudioTo(maxVolume);
         updatePlayerUI(true);
     }).catch(e => console.log("Auto-play prevenido", e));
 
+    // Animación salida Intro
     introScreen.style.opacity = '0';
     
-    // Switch de fondos
+    // Cambiar fondos
     engravingLayer.classList.add('hidden');
     handwritingLayer.classList.add('visible');
 
     setTimeout(() => {
         introScreen.style.display = 'none';
+        // Revelar contenido principal
         mainContent.style.visibility = 'visible';
         mainContent.style.opacity = '1';
         ambientBar.classList.add('visible');
     }, 800);
 });
 
-// --- 4. CONTROL DE AUDIO ---
+// --- 5. CONTROL AUDIO (Igual que antes) ---
 toggleBtn.addEventListener('click', () => {
     if (audio.paused || audio.volume === 0) {
         audio.play();
@@ -146,10 +161,10 @@ function fadeAudioTo(targetVolume) {
     }, 100);
 }
 
-// --- 5. SUSCRIPCIÓN ---
+// --- 6. FORMULARIO & VERIFICACIÓN ---
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    submitBtn.innerHTML = "Generando Código...";
+    submitBtn.innerHTML = "Procesando...";
     submitBtn.style.opacity = "0.7";
     
     userEmail = emailInput.value;
@@ -167,22 +182,18 @@ form.addEventListener('submit', async (e) => {
         if (data.status === 'success') {
             form.style.display = 'none';
             verifyForm.style.display = 'block';
-            verifyForm.style.animation = "fadeIn 1s forwards"; 
             verifyCodeInput.focus();
         } else {
             alert("Error: " + (data.message || "No se pudo procesar"));
             submitBtn.innerHTML = "Solicitar Acceso";
-            submitBtn.style.opacity = "1";
         }
     } catch (error) {
-        console.error("Error en suscripción:", error);
+        console.error(error);
         alert("Error de conexión.");
         submitBtn.innerHTML = "Solicitar Acceso";
-        submitBtn.style.opacity = "1";
     }
 });
 
-// --- 6. VERIFICACIÓN ---
 verifyForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     verifyBtn.innerHTML = "Verificando...";
@@ -201,22 +212,21 @@ verifyForm.addEventListener('submit', async (e) => {
         if (data.status === 'success') {
             verifyForm.style.display = 'none';
             successView.style.display = 'block';
-            successView.style.animation = "fadeIn 1s forwards";
             
+            // --- AQUÍ EL CAMBIO DE COLOR ---
             artImage.style.filter = "grayscale(0%) contrast(1.1)";
             artImage.style.borderColor = "var(--accent)";
-            artImage.style.boxShadow = "0 0 30px rgba(238, 64, 54, 0.3)";
+            artImage.style.boxShadow = "0 0 40px rgba(238, 64, 54, 0.5)";
             
-            // Si quieres que el manuscrito se vea más intenso al final
-            handwritingLayer.style.opacity = "0.8"; 
+            // Efecto extra en manuscrito de fondo
+            handwritingLayer.style.opacity = "0.5"; 
+            
         } else {
             verifyError.style.display = 'block';
-            verifyError.textContent = "Código incorrecto.";
             verifyBtn.innerHTML = "Desbloquear";
         }
     } catch (error) {
         verifyBtn.innerHTML = "Desbloquear";
         verifyError.style.display = 'block';
-        verifyError.textContent = "Error de conexión.";
     }
 });
