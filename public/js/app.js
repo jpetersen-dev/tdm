@@ -55,16 +55,27 @@ async function loadAlbums() {
             return;
         }
 
-        // Ordenar por fecha
-        albums.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+        // Excluir álbum específico por su ID de Spotify
+        const filteredAlbums = albums.filter(album => album.id !== '2nemycrWx2BkZIRH9e1sh9');
 
-        albums.forEach(album => {
+        // Ordenar por fecha
+        filteredAlbums.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
+
+        filteredAlbums.forEach(album => {
             const imageUrl = album.images[0]?.url || 'assets/img/logo_tdm.jpg';
             const artists = album.artists.map(artist => artist.name).join(', ');
             
             // Lógica de tipo de producción simplificada y segura
             const albumType = album.album_type === 'single' ? 'Sencillo' : 'Álbum';
 
+            // Formatear la fecha a dd-mm-aaaa
+            const releaseDateObj = new Date(album.release_date);
+            const formattedDate = releaseDateObj.toLocaleDateString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+            });
+            
             const card = document.createElement('div');
             card.className = 'album-card ink-effect'; 
             
@@ -80,6 +91,7 @@ async function loadAlbums() {
                 <div class="album-info">
                     <h4 class="album-title">${album.name}</h4>
                     <p class="album-artist">${artists}</p>
+                    <span class="album-date">${formattedDate}</span>
                     <a href="${album.external_urls.spotify}" target="_blank" class="album-link">Escuchar ↗</a>
                 </div>
             `;

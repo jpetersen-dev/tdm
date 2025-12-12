@@ -124,6 +124,7 @@
             <div class="albums-grid" id="albums-grid">
                 <p class="loading-text">Cargando discografía...</p>
             </div>
+            <p class="scroll-hint">Desliza para explorar ‹ ›</p>
         </section>
 
         <footer>TEORÍA DE MAICOL © 2025</footer>

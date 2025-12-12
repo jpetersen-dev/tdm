@@ -300,6 +300,16 @@ body {
     cursor: -webkit-grabbing;
 }
 
+.scroll-hint {
+    color: #666;
+    font-family: 'Space Mono', monospace;
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 .loading-text { opacity: 0.5; width: 100%; text-align: center; margin-top: 2rem; }
 
 /* Tarjetas */
@@ -369,6 +379,14 @@ body {
     font-family: 'Space Mono', monospace;
     font-size: 0.9rem;
     color: #888;
+    margin-bottom: 0.5rem; /* Reducido para dar espacio a la fecha */
+}
+
+.album-date {
+    display: block;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.8rem;
+    color: #666;
     margin-bottom: 1.5rem;
 }
 
