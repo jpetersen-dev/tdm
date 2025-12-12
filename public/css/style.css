@@ -1,5 +1,5 @@
 :root {
-    --bg-color: #080808;
+    --bg-color: #000000;
     --text-main: #f0f0f0;
     --accent: #EE4036; 
     --glass: rgba(15, 15, 15, 0.85); /* Fondo semitransparente oscuro */
@@ -156,7 +156,7 @@ body {
 
 .main-title {
     font-family: 'Syne';
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 0.5rem;
     text-transform: uppercase;
     color: #fff;
@@ -222,31 +222,92 @@ body {
 
 .legal-footer { margin-top: 2rem; border-top: 1px solid #222; padding-top: 1rem; text-align: center; opacity: 0.4; font-size: 0.6rem; line-height: 1.4; }
 
-/* --- 8. DISCOGRAFÍA (Tarjetas Custom) --- */
+/* --- 8. DISCOGRAFÍA (Slider Interactivo) --- */
 .discography-section { 
-    width: 100%; max-width: 1000px; margin: 4rem auto; padding: 0 1rem; 
-    border-top: 1px solid #222; padding-top: 4rem; text-align: center; 
+    width: 100%; max-width: 100%; /* Permitir ancho total */
+    margin: 4rem auto; 
+    padding: 4rem 0 0 0; /* Quitamos padding lateral del contenedor principal */
+    border-top: 1px solid #222; 
+    text-align: center; 
+    overflow: hidden; /* Ocultar lo que se sale del slider */
 }
 
 .section-title { font-family: 'Syne'; font-size: 2rem; margin-bottom: 0.5rem; text-transform: uppercase; color: #fff; }
 .section-subtitle { color: #666; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 3rem; text-transform: uppercase; }
 
-.albums-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; }
-.loading-text { opacity: 0.5; width: 100%; text-align: center; grid-column: 1 / -1; }
+/* Contenedor deslizante (Slider) */
+.albums-grid {
+    display: flex; /* Alineación horizontal */
+    overflow-x: auto; /* Scroll horizontal */
+    gap: 4rem; 
+    padding: 2rem 5%; 
+    
+    /* Ocultar Scrollbars */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE/Edge */
+    
+    /* Cursor interactivo */
+    cursor: grab; 
+    cursor: -webkit-grab;
+    
+    /* Suavidad en móviles */
+    -webkit-overflow-scrolling: touch;
+    
+    width: 100%;
+    margin: 0;
+}
 
-.album-card { text-align: left; background: transparent; transition: transform 0.3s; cursor: pointer; }
-.album-card:hover { transform: translateY(-10px); }
+/* Ocultar scrollbar en Chrome/Safari */
+.albums-grid::-webkit-scrollbar {
+    display: none;
+}
+
+/* Estado al agarrar */
+.albums-grid.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.loading-text { opacity: 0.5; width: 100%; text-align: center; margin-top: 2rem; }
+
+/* Tarjetas */
+.album-card {
+    flex: 0 0 300px; /* Tamaño fijo, no encoger */
+    width: 300px;
+    text-align: left;
+    background: transparent;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Evitar selección de texto al arrastrar */
+    user-select: none; 
+    -webkit-user-select: none;
+}
+
+.album-card:hover { transform: translateY(-15px) scale(1.02); }
 
 .album-art { 
     width: 100%; aspect-ratio: 1; object-fit: cover; margin-bottom: 1rem; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.5); filter: grayscale(50%); transition: 0.3s; 
+    
+    /* IMPORTANTE: Evitar arrastre de imagen fantasma */
+    pointer-events: none;
 }
 .album-card:hover .album-art { filter: grayscale(0%); box-shadow: 0 10px 40px rgba(238, 64, 54, 0.2); }
+
+/* Reactivar eventos en los enlaces */
+.album-card a { pointer-events: auto; }
 
 .album-title { font-family: 'Syne'; font-size: 1.2rem; color: #fff; margin-bottom: 0.2rem; }
 .album-date { font-family: 'Space Mono'; font-size: 0.8rem; color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
 .album-link { display: inline-block; font-size: 0.75rem; color: #666; text-decoration: none; border-bottom: 1px solid #333; transition: 0.3s; }
 .album-link:hover { color: #fff; border-color: #fff; }
+
+@media (max-width: 600px) {
+    .album-card {
+        flex: 0 0 240px; 
+        width: 240px;
+    }
+}
 
 /* --- 9. BARRA INFERIOR --- */
 #ambient-bar { 
