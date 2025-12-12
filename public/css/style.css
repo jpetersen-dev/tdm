@@ -519,6 +519,43 @@ footer { padding: 2rem; opacity: 0.5; font-size: 0.8rem; text-align: center; }
 @keyframes scaleIn { from { transform: scale(0.8); } to { transform: scale(1); } }
 @keyframes fade-in-up { from { opacity: 0; } to { opacity: 1; } }
 
+/* New styles for uncompressed download options */
+.download-options-uncompressed {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #222;
+    text-align: center;
+}
+
+.download-description-uncompressed {
+    font-size: 0.85rem;
+    color: #999;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.download-btn-small {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    margin: 0.5rem 0.5rem;
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    transition: 0.3s;
+    border-radius: 5px;
+}
+
+.download-btn-small:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    box-shadow: 0 0 10px rgba(238, 64, 54, 0.2);
+}
+
 /* RESPONSIVE */
 @media (max-width: 600px) {
     .logo, .main-title { font-size: 2.5rem; }

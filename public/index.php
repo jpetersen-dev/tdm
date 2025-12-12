@@ -78,7 +78,7 @@
                         Además te estaremos avisando de nuevas fechas, lanzamientos y otras cosillas.
                         <br><br>  
 
-                        Más abajo puedes descubrir nuestras producciones anteriores!
+                        Más abajo puedes descubrir nuestras producciones anteriores !
                     </p>
 
                     <div class="input-group">
@@ -140,6 +140,18 @@
                     <a href="assets/downloads/LO PEOR - TEORIA DE MAICOL (2025).rar" download class="download-btn">
                         DESCARGAR PACK "LO PEOR"
                     </a>
+
+                    <div class="download-options-uncompressed">
+                        <p class="download-description-uncompressed">
+                            ¿Problemas con el .RAR en tu móvil? Descarga el contenido sin comprimir aquí:
+                        </p>
+                        <a href="assets/downloads/Teoría de Maicol - LO PEOR (Single 2025)/" class="download-btn-small" target="_blank">
+                            Descargar "LO PEOR" (Sin comprimir)
+                        </a>
+                        <a href="assets/downloads/Bonus/" class="download-btn-small" target="_blank">
+                            Descargar "Bonus" (Sin comprimir)
+                        </a>
+                    </div>
 
                     <div class="legal-footer">
                         <small>Todos los derechos reservados © Teoría de Maicol 2025.<br>
