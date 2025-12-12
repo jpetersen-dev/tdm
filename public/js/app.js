@@ -218,8 +218,8 @@ verifyForm.addEventListener('submit', async (e) => {
             successView.style.display = 'block';
             
             artImage.style.filter = "grayscale(0%) contrast(1.1)";
-            artImage.style.borderColor = "var(--accent)";
-            artImage.style.boxShadow = "0 0 40px rgba(238, 64, 54, 0.5)";
+            artImage.style.borderColor = "#222"; // Reset to default border color
+            artImage.style.boxShadow = "none"; // Remove red glow
             
             handwritingLayer.style.opacity = "0.5"; 
             

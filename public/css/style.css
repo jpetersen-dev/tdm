@@ -127,13 +127,14 @@ body {
     text-transform: uppercase;
     color: #999;
     letter-spacing: 2px;
-    font-family: 'Syne', sans-serif;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 400; /* Normal weight */
     animation: fade-in-up 1s ease-in-out 0.2s both;
 }
 
 .intro-highlight {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 700; /* Bold weight */
     font-size: 2.5rem; /* Agrandado */
     text-transform: uppercase;
     color: #fff;
@@ -155,7 +156,7 @@ body {
     animation: scaleIn 1.2s ease-in-out 0.8s both;
 }
 
-.intro-btn { background: transparent; border: 1px solid var(--text-main); color: var(--text-main); font-family: 'Syne', sans-serif; font-size: 1.2rem; padding: 1rem 3rem; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; margin-top: 1rem; animation: fade-in-up 1s ease-in-out 0.6s both; }
+.intro-btn { background: transparent; border: 1px solid var(--text-main); color: var(--text-main); font-family: 'Source Sans 3', sans-serif; font-size: 1.2rem; padding: 1rem 3rem; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; margin-top: 1rem; animation: fade-in-up 1s ease-in-out 0.6s both; }
 .intro-btn:hover { background: var(--accent); border-color: var(--accent); color: white; letter-spacing: 4px; box-shadow: 0 0 20px rgba(238, 64, 54, 0.4); }
 
 
@@ -182,8 +183,9 @@ body {
 }
 
 .main-title {
-    font-family: 'Syne';
+    font-family: 'Source Sans 3', sans-serif;
     font-size: 3.5rem;
+    font-weight: 700; /* Bold */
     margin-bottom: 0.5rem;
     text-transform: uppercase;
     /* Efecto de texto degradado y resplandor */
@@ -194,7 +196,7 @@ body {
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
-.main-subtitle { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.5rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
+.main-subtitle { font-family: 'Source Sans 3', sans-serif; font-weight: 400; font-size: 1.5rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
 .main-subtitle .lighter { color: #888; font-weight: 400; }
 
 /* --- 6. TARJETA Y FORMULARIOS --- */
@@ -209,8 +211,8 @@ body {
 }
 
 .form-single-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 700;
+    font-family: 'Source Sans 3', sans-serif;
+    font-weight: 400;
     font-size: 1.5rem; /* Igual que main-subtitle */
     color: #fff;
     text-transform: uppercase;
@@ -239,7 +241,7 @@ body {
 
 .submit-btn {
     width: 100%; background: #111; border: 1px solid #444; color: #fff;
-    font-family: 'Syne'; font-weight: 700; padding: 1.2rem; cursor: pointer;
+    font-family: 'Source Sans 3', sans-serif; font-weight: 700; padding: 1.2rem; cursor: pointer;
     text-transform: uppercase; margin-top: 1rem; transition: 0.3s;
 }
 .submit-btn:hover { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px rgba(238, 64, 54, 0.3); }
@@ -251,13 +253,72 @@ body {
 }
 
 /* Vista Éxito */
-.success-title { font-family: 'Syne'; font-size: 1.8rem; color: #fff; margin-bottom: 1rem; text-align: center; letter-spacing: -1px; }
+.success-title { font-family: 'Source Sans 3', sans-serif; font-size: 1.8rem; color: #fff; margin-bottom: 1rem; text-align: center; letter-spacing: -1px; font-weight: 700; }
 .success-text { font-size: 0.9rem; text-align: center; color: #888; margin-bottom: 2rem; line-height: 1.5; }
+
+/* Styling for the new download content in success-view */
+.download-description {
+    font-size: 0.95rem;
+    text-align: center;
+    color: #ccc;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.download-content-preview {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid #333;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+}
+
+.download-content-preview h4 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.content-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+    text-align: left;
+    font-size: 0.9rem;
+    color: #bbb;
+}
+
+.content-list li {
+    margin-bottom: 0.5rem;
+}
+
+.content-list li ul {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-top: 0.3rem;
+}
+
+.content-list li ul li {
+    font-size: 0.85rem;
+    color: #999;
+}
+
+.download-hint {
+    font-size: 0.8rem;
+    color: #666;
+    text-align: center;
+    margin-top: 1.5rem;
+    font-style: italic;
+}
 
 .download-btn {
     display: block; width: 100%; padding: 1.2rem; margin-bottom: 1rem;
     background: var(--accent); color: #fff; text-decoration: none; text-transform: uppercase;
-    font-family: 'Syne'; font-weight: 700; text-align: center; transition: 0.3s;
+    font-family: 'Source Sans 3', sans-serif; font-weight: 700; text-align: center; transition: 0.3s;
 }
 .download-btn:hover { box-shadow: 0 0 20px rgba(238,64,54,0.5); transform: translateY(-2px); }
 
@@ -276,8 +337,8 @@ body {
     overflow: hidden; /* Ocultar lo que se sale del slider */
 }
 
-.section-title { font-family: 'Syne'; font-size: 2rem; margin-bottom: 0.5rem; text-transform: uppercase; color: #fff; }
-.section-subtitle { color: #666; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 3rem; text-transform: uppercase; }
+.section-title { font-family: 'Source Sans 3', sans-serif; font-size: 2rem; margin-bottom: 0.5rem; text-transform: uppercase; color: #fff; font-weight: 700; }
+.section-subtitle { font-family: 'Source Sans 3', sans-serif; font-weight: 400; color: #666; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 3rem; text-transform: uppercase; }
 
 /* Contenedor deslizante (Slider) */
 .albums-grid {
@@ -368,7 +429,7 @@ body {
 }
 
 .album-type {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Source Sans 3', sans-serif;
     font-size: 0.75rem;
     font-weight: 700;
     color: #fff;
@@ -380,7 +441,7 @@ body {
 }
 
 .album-title {
-    font-family: 'Syne', sans-serif;
+    font-family: 'Source Sans 3', sans-serif;
     font-size: 1.3rem;
     font-weight: 700;
     color: #fff;
@@ -413,6 +474,7 @@ body {
     border-radius: 20px;
     transition: 0.3s;
     text-transform: uppercase;
+    font-family: 'Source Sans 3', sans-serif;
 }
 .album-link:hover {
     background: var(--accent);
@@ -443,8 +505,8 @@ body {
 
 .control-btn {
     background: none; border: none; cursor: pointer; color: white;
-    display: flex; align-items: center; gap: 8px; font-family: 'Syne'; font-size: 0.8rem;
-    text-transform: uppercase; transition: color 0.3s;
+    display: flex; align-items: center; gap: 8px; font-family: 'Source Sans 3', sans-serif; font-size: 0.8rem;
+    text-transform: uppercase; transition: color 0.3s; font-weight: 700;
 }
 .control-btn:hover { color: var(--accent); }
 .control-icon { width: 12px; height: 12px; fill: currentColor; }

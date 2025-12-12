@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;700&display=swap" rel="stylesheet">
+    
     
     <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
@@ -42,7 +44,7 @@
     <div id="ambient-bar">
         <div class="track-info">
             <div class="live-indicator" id="live-dot"></div>
-            <span>Ambiente: Lo Peor (Inst)</span>
+            <span>Estas escuchando: Se me va la onda (Instrumental)</span>
         </div>
         <button id="toggle-audio-btn" class="control-btn">
             <span id="btn-text">Pausar</span>
@@ -112,11 +114,31 @@
                         <span style="color: var(--accent);">Hemos liberado este material exclusivo para ti.</span>
                     </p>
                     
-                    <a href="assets/downloads/TDM_Single_Master.wav" download class="download-btn">
-                        DESCARGAR "LO PEOR"
-                    </a>
-                    <a href="assets/downloads/TDM_Manuscrito.pdf" download class="download-btn secondary">
-                        DESCARGAR MANUSCRITO ORIGINAL
+                    <p class="download-description">
+                        ¡Gracias por tu apoyo! Aquí tienes el material exclusivo que desbloqueaste:
+                    </p>
+
+                    <div class="download-content-preview">
+                        <h4>Contenido del paquete "LO PEOR (2025).rar":</h4>
+                        <ul class="content-list">
+                            <li><strong>Tracks del single:</strong>
+                                <ul>
+                                    <li>01. Se me va la onda (MP3)</li>
+                                    <li>02. Terminó (MP3)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Arte:</strong>
+                                <ul>
+                                    <li>Cover Art oficial "Lo Peor" (JPG)</li>
+                                    <li>Arte Extendido de "Lo Peor" (JPG)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <p class="download-hint">Todo empaquetado en un archivo .RAR para tu comodidad.</p>
+                    </div>
+
+                    <a href="assets/downloads/LO PEOR - TEORIA DE MAICOL (2025).rar" download class="download-btn">
+                        DESCARGAR PACK "LO PEOR"
                     </a>
 
                     <div class="legal-footer">
