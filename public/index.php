@@ -5,17 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teoría de Maicol | Lo Peor</title>
     
+    <!-- FUENTES -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
     
+    <!-- CSS -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <audio id="bg-audio" loop preload="auto">
-        <source src="assets/audio/background_loop.mp3" type="audio/mpeg">
-    </audio>
+    <div class="page-bg"></div>
 
     <div class="parallax-wrapper">
         <div class="bg-layer bg-engraving" id="engraving-layer" data-speed="0.2"></div>
@@ -23,6 +23,12 @@
         <div class="bg-layer bg-noise"></div>
     </div>
 
+    <!-- AUDIO LOOP -->
+    <audio id="bg-audio" loop preload="auto">
+        <source src="assets/audio/background_loop.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- PANTALLA INTRO -->
     <div id="intro-screen">
         <p class="intro-sup">DESCUBRE LO NUEVO DE</p>
         <h1 class="intro-highlight ink-effect">TEORÍA DE MAICOL</h1>
@@ -32,10 +38,11 @@
         <button id="explore-btn" class="intro-btn">COMENZAR</button>
     </div>
 
+    <!-- BARRA REPRODUCTOR -->
     <div id="ambient-bar">
         <div class="track-info">
             <div class="live-indicator" id="live-dot"></div>
-            <span>Ambiente: Materia Prima (Inst)</span>
+            <span>Ambiente: Lo Peor (Inst)</span>
         </div>
         <button id="toggle-audio-btn" class="control-btn">
             <span id="btn-text">Pausar</span>
@@ -43,11 +50,12 @@
         </button>
     </div>
 
+    <!-- CONTENIDO PRINCIPAL -->
     <div id="main-content">
-        
+        <!-- SECCIÓN HERO -->
         <section class="hero-section">
             <div class="titles-wrapper">
-                <h2 class="main-title gradient-text ink-effect">TEORÍA DE MAICOL</h2>
+                <h2 class="main-title ink-effect">TEORÍA DE MAICOL</h2>
                 <h3 class="main-subtitle ink-effect delay-1">LO PEOR / <span class="lighter">NUEVO SINGLE 2025</span></h3>
             </div>
 
@@ -120,6 +128,7 @@
         <footer>TEORÍA DE MAICOL © 2025</footer>
     </div>
 
+    <!-- JS -->
     <script src="js/app.js"></script>
 </body>
 </html>

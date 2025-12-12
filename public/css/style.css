@@ -1,5 +1,5 @@
 :root {
-    --bg-color: #080808;
+    --bg-color: #000000;
     --text-main: #f0f0f0;
     --accent: #EE4036; 
     --glass: rgba(15, 15, 15, 0.85); /* Fondo semitransparente oscuro */
@@ -9,12 +9,22 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-body {
+.page-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-color: var(--bg-color);
+    z-index: -2;
+}
+
+body {
     color: var(--text-main);
     font-family: 'Space Mono', monospace;
     min-height: 100vh;
     overflow-x: hidden;
+    position: relative;
     padding-bottom: var(--bar-height);
 }
 
@@ -64,7 +74,7 @@ body {
 
 /* Capa Manuscrito (Formulario) */
 .bg-handwriting { 
-    background-image: url('../assets/img/handwriting_bg.jpg'); 
+    background-image: url('../assets/img/handwriting_bg.jpeg'); 
     opacity: 0; mix-blend-mode: exclusion; 
     filter: invert(1) contrast(1.3); 
 }
@@ -88,29 +98,46 @@ body {
 #intro-screen { 
     position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
     /* FIX: Fondo sólido degradado para tapar el contenido de atrás */
-    background: radial-gradient(circle, rgba(10,10,10,1) 0%, rgba(0,0,0,1) 90%);
+    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(8,8,8,0.95) 90%);
     display: flex; flex-direction: column; justify-content: center; align-items: center; 
     z-index: 2000; 
     transition: opacity 0.8s ease, visibility 0.8s ease; 
 }
 
-.intro-sup { font-size: 0.9rem; letter-spacing: 4px; margin-bottom: 1rem; color: #888; text-transform: uppercase; }
-.intro-highlight { 
-    font-family: 'Syne', sans-serif; font-size: 3.5rem; color: var(--text-main); 
-    text-shadow: 0 0 20px rgba(255,255,255,0.2); margin-bottom: 2rem; 
-    text-transform: uppercase; text-align: center; 
+.intro-sup {
+    font-size: 1rem;
+    text-transform: uppercase;
+    color: #999;
+    letter-spacing: 2px;
+    font-family: 'Syne', sans-serif;
+    animation: fade-in-up 1s ease-in-out 0.2s both;
 }
-.intro-logo-img { width: 180px; margin-bottom: 2rem; filter: drop-shadow(0 0 20px rgba(238, 64, 54, 0.4)); }
 
-.intro-btn { 
-    background: transparent; border: 1px solid var(--text-main); color: var(--text-main); 
-    font-family: 'Syne', sans-serif; padding: 1rem 3rem; cursor: pointer; 
-    text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; 
+.intro-highlight {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 2.5rem; /* Agrandado */
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-top: 0.5rem;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.7); /* Resplandor */
+    animation: fade-in-up 1s ease-in-out 0.4s both;
 }
-.intro-btn:hover { 
-    background: var(--accent); border-color: var(--accent); color: #fff; letter-spacing: 4px; 
-    box-shadow: 0 0 20px rgba(238, 64, 54, 0.4); 
+
+.intro-logo-img {
+    display: block; /* Importante */
+    width: 300px; 
+    max-width: 80%; /* Para móviles */
+    height: auto;
+    margin: 2rem auto 2rem auto; /* Centrado */
+    filter: drop-shadow(0 0 20px rgba(238, 64, 54, 0.6));
+    animation: scaleIn 1.2s ease-in-out 0.8s both;
 }
+
+.intro-btn { background: transparent; border: 1px solid var(--text-main); color: var(--text-main); font-family: 'Syne', sans-serif; font-size: 1.2rem; padding: 1rem 3rem; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; margin-top: 1rem; animation: fade-in-up 1s ease-in-out 0.6s both; }
+.intro-btn:hover { background: var(--accent); border-color: var(--accent); color: white; letter-spacing: 4px; box-shadow: 0 0 20px rgba(238, 64, 54, 0.4); }
+
 
 /* --- 5. CONTENIDO PRINCIPAL (Oculto al inicio) --- */
 #main-content { 
@@ -128,11 +155,13 @@ body {
 .titles-wrapper { text-align: center; margin-bottom: 3rem; }
 
 .main-title {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 3rem; 
-    text-transform: uppercase; letter-spacing: -1px; margin-bottom: 0.5rem;
-    background: linear-gradient(180deg, var(--accent) 0%, #a3160e 100%);
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    font-family: 'Syne';
+    font-size: 3.5rem;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    color: #fff;
 }
+
 .main-subtitle { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.5rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
 .main-subtitle .lighter { color: #888; font-weight: 400; }
 
@@ -184,7 +213,7 @@ body {
 .download-btn { 
     display: block; width: 100%; padding: 1.2rem; margin-bottom: 1rem; 
     background: var(--accent); color: #fff; text-decoration: none; text-transform: uppercase; 
-    font-family: 'Syne'; font-weight: 700; text-align: center; transition: 0.3s; 
+    font-family: 'Syne'; font-weight: 700; text-align: center; transition: 0.3s;
 }
 .download-btn:hover { box-shadow: 0 0 20px rgba(238,64,54,0.5); transform: translateY(-2px); }
 
@@ -193,30 +222,92 @@ body {
 
 .legal-footer { margin-top: 2rem; border-top: 1px solid #222; padding-top: 1rem; text-align: center; opacity: 0.4; font-size: 0.6rem; line-height: 1.4; }
 
-/* --- 8. DISCOGRAFÍA (Tarjetas Custom) --- */
+/* --- 8. DISCOGRAFÍA (Slider Interactivo) --- */
 .discography-section { 
-    width: 100%; max-width: 1000px; margin: 4rem auto; padding: 0 1rem; 
-    border-top: 1px solid #222; padding-top: 4rem; text-align: center; 
+    width: 100%; max-width: 100%; /* Permitir ancho total */
+    margin: 4rem auto; 
+    padding: 4rem 0 0 0; /* Quitamos padding lateral del contenedor principal */
+    border-top: 1px solid #222; 
+    text-align: center; 
+    overflow: hidden; /* Ocultar lo que se sale del slider */
 }
+
 .section-title { font-family: 'Syne'; font-size: 2rem; margin-bottom: 0.5rem; text-transform: uppercase; color: #fff; }
 .section-subtitle { color: #666; font-size: 0.9rem; letter-spacing: 1px; margin-bottom: 3rem; text-transform: uppercase; }
 
-.albums-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem; }
-.loading-text { opacity: 0.5; width: 100%; text-align: center; grid-column: 1 / -1; }
+/* Contenedor deslizante (Slider) */
+.albums-grid {
+    display: flex; /* Alineación horizontal */
+    overflow-x: auto; /* Scroll horizontal */
+    gap: 4rem; 
+    padding: 2rem 5%; 
+    
+    /* Ocultar Scrollbars */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE/Edge */
+    
+    /* Cursor interactivo */
+    cursor: grab; 
+    cursor: -webkit-grab;
+    
+    /* Suavidad en móviles */
+    -webkit-overflow-scrolling: touch;
+    
+    width: 100%;
+    margin: 0;
+}
 
-.album-card { text-align: left; background: transparent; transition: transform 0.3s; cursor: pointer; }
-.album-card:hover { transform: translateY(-10px); }
+/* Ocultar scrollbar en Chrome/Safari */
+.albums-grid::-webkit-scrollbar {
+    display: none;
+}
+
+/* Estado al agarrar */
+.albums-grid.active {
+    cursor: grabbing;
+    cursor: -webkit-grabbing;
+}
+
+.loading-text { opacity: 0.5; width: 100%; text-align: center; margin-top: 2rem; }
+
+/* Tarjetas */
+.album-card {
+    flex: 0 0 300px; /* Tamaño fijo, no encoger */
+    width: 300px;
+    text-align: left;
+    background: transparent;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* Evitar selección de texto al arrastrar */
+    user-select: none; 
+    -webkit-user-select: none;
+}
+
+.album-card:hover { transform: translateY(-15px) scale(1.02); }
 
 .album-art { 
     width: 100%; aspect-ratio: 1; object-fit: cover; margin-bottom: 1rem; 
     box-shadow: 0 10px 30px rgba(0,0,0,0.5); filter: grayscale(50%); transition: 0.3s; 
+    
+    /* IMPORTANTE: Evitar arrastre de imagen fantasma */
+    pointer-events: none;
 }
 .album-card:hover .album-art { filter: grayscale(0%); box-shadow: 0 10px 40px rgba(238, 64, 54, 0.2); }
+
+/* Reactivar eventos en los enlaces */
+.album-card a { pointer-events: auto; }
 
 .album-title { font-family: 'Syne'; font-size: 1.2rem; color: #fff; margin-bottom: 0.2rem; }
 .album-date { font-family: 'Space Mono'; font-size: 0.8rem; color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
 .album-link { display: inline-block; font-size: 0.75rem; color: #666; text-decoration: none; border-bottom: 1px solid #333; transition: 0.3s; }
 .album-link:hover { color: #fff; border-color: #fff; }
+
+@media (max-width: 600px) {
+    .album-card {
+        flex: 0 0 240px; 
+        width: 240px;
+    }
+}
 
 /* --- 9. BARRA INFERIOR --- */
 #ambient-bar { 
@@ -245,10 +336,12 @@ footer { padding: 2rem; opacity: 0.5; font-size: 0.8rem; text-align: center; }
 /* ANIMACIONES */
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes pulse { 0% { opacity: 0.5; } 50% { opacity: 1; box-shadow: 0 0 15px var(--accent); } 100% { opacity: 0.5; } }
+@keyframes scaleIn { from { transform: scale(0.8); } to { transform: scale(1); } }
+@keyframes fade-in-up { from { opacity: 0; } to { opacity: 1; } }
 
 /* RESPONSIVE */
 @media (max-width: 600px) { 
-    .logo, .main-title { font-size: 2.2rem; } 
+    .logo, .main-title { font-size: 2.5rem; } 
     .intro-highlight { font-size: 2.5rem; }
     #ambient-bar { padding: 0 1rem; } 
     .intro-logo-img { width: 150px; } 
