@@ -57,16 +57,26 @@
             <img src="assets/img/logo_tdm.jpg" alt="TDM Logo" class="main-logo">
             <div class="titles-wrapper">
                 <h2 class="main-title ink-effect">TEORÍA DE MAICOL</h2>
-                <h3 class="main-subtitle ink-effect delay-1">LO PEOR / <span class="lighter">NUEVO SINGLE 2025</span></h3>
+                <h3 class="main-subtitle ink-effect delay-1">LANZAMIENTO EXCLUSIVO</h3>
             </div>
 
             <div class="card-wrapper">
                 <img src="assets/img/cover.jpg" alt="Carátula Lo Peor" class="art-image" id="art-image">
 
+                <h4 class="form-single-title">LO PEOR / <span class="lighter">NUEVO SINGLE 2025</span></h4>
+
                 <form id="fan-form">
                     <p class="form-desc">
-                        Déjanos tu contacto para descargar <strong>LO PEOR</strong> y un bonus sorpresa <strong>EXCLUSIVO</strong>.<br>
+                        Déjanos tu contacto y desbloquea el acceso completo a nuestro material exclusivo. <br>
+                        Podrás descargar el single <strong>"LO PEOR"</strong> con sus dos tracks:
+                        <br><br>
+                        1. Se me va la onda<br>
+                        2. Terminó
+                        <br><br>
                         Además te estaremos avisando de nuevas fechas, lanzamientos y otras cosillas.
+                        <br><br>  
+
+                        Más abajo puedes descubrir nuestras producciones anteriores!
                     </p>
 
                     <div class="input-group">

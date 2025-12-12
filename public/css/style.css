@@ -208,6 +208,18 @@ body {
     margin-bottom: 2rem; transition: filter 1.5s ease; border: 1px solid #222;
 }
 
+.form-single-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem; /* Igual que main-subtitle */
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2rem; /* Espacio debajo del título */
+    text-align: center;
+}
+.form-single-title .lighter { color: #888; font-weight: 400; }
+
 /* Estilos de Inputs */
 .form-desc { font-size: 0.85rem; line-height: 1.6; color: #ccc; margin-bottom: 1.5rem; text-align: center; }
 .input-group { position: relative; margin-bottom: 1.5rem; }
