@@ -145,11 +145,20 @@
                         <p class="download-description-uncompressed">
                             ¿Problemas con el .RAR en tu móvil? Descarga el contenido sin comprimir aquí:
                         </p>
-                        <a href="assets/downloads/Teoría de Maicol - LO PEOR (Single 2025)/" class="download-btn-small" target="_blank">
-                            Descargar "LO PEOR" (Sin comprimir)
+                        <h5 class="download-group-title">LO PEOR (Single 2025)</h5>
+                        <a href="assets/downloads/Teoría de Maicol - LO PEOR (Single 2025)/01. Se me va la onda.mp3" download class="download-btn-small">
+                            01. Se me va la onda (MP3)
                         </a>
-                        <a href="assets/downloads/Bonus/" class="download-btn-small" target="_blank">
-                            Descargar "Bonus" (Sin comprimir)
+                        <a href="assets/downloads/Teoría de Maicol - LO PEOR (Single 2025)/02. Terminó.mp3" download class="download-btn-small">
+                            02. Terminó (MP3)
+                        </a>
+                        <a href="assets/downloads/Teoría de Maicol - LO PEOR (Single 2025)/Cover_art_Lo_Peor_Teoría_de_Maicol.jpg" download class="download-btn-small">
+                            Cover Art (JPG)
+                        </a>
+
+                        <h5 class="download-group-title">Bonus</h5>
+                        <a href="assets/downloads/Bonus/LO PEOR - Teoría de Maicol (Arte del Single Versión Etendida).JPG" download class="download-btn-small">
+                            Arte del Single (Extendido JPG)
                         </a>
                     </div>
 

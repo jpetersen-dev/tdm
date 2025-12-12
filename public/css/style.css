@@ -534,6 +534,17 @@ footer { padding: 2rem; opacity: 0.5; font-size: 0.8rem; text-align: center; }
     line-height: 1.5;
 }
 
+.download-group-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text-main);
+    margin-top: 1.5rem;
+    margin-bottom: 0.8rem;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
 .download-btn-small {
     display: inline-block;
     padding: 0.8rem 1.5rem;
