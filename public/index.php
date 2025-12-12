@@ -54,6 +54,7 @@
     <div id="main-content">
         <!-- SECCIÓN HERO -->
         <section class="hero-section">
+            <img src="assets/img/logo_tdm.jpg" alt="TDM Logo" class="main-logo">
             <div class="titles-wrapper">
                 <h2 class="main-title ink-effect">TEORÍA DE MAICOL</h2>
                 <h3 class="main-subtitle ink-effect delay-1">LO PEOR / <span class="lighter">NUEVO SINGLE 2025</span></h3>

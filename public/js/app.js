@@ -59,19 +59,29 @@ async function loadAlbums() {
         albums.sort((a, b) => new Date(b.release_date) - new Date(a.release_date));
 
         albums.forEach(album => {
-            const releaseYear = album.release_date.split('-')[0];
             const imageUrl = album.images[0]?.url || 'assets/img/logo_tdm.jpg';
+            const artists = album.artists.map(artist => artist.name).join(', ');
+            
+            // Lógica de tipo de producción simplificada y segura
+            const albumType = album.album_type === 'single' ? 'Sencillo' : 'Álbum';
 
             const card = document.createElement('div');
             card.className = 'album-card ink-effect'; 
             
             card.innerHTML = `
-                <a href="${album.external_urls.spotify}" target="_blank">
-                    <img src="${imageUrl}" alt="${album.name}" class="album-art">
-                </a>
-                <h4 class="album-title">${album.name}</h4>
-                <span class="album-date">Lanzamiento: ${album.release_date}</span>
-                <a href="${album.external_urls.spotify}" target="_blank" class="album-link">Escuchar en Spotify ↗</a>
+                <div class="album-art-wrapper">
+                    <a href="${album.external_urls.spotify}" target="_blank" class="album-art-link">
+                        <img src="${imageUrl}" alt="${album.name}" class="album-art">
+                        <div class="album-overlay">
+                            <span class="album-type">${albumType}</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="album-info">
+                    <h4 class="album-title">${album.name}</h4>
+                    <p class="album-artist">${artists}</p>
+                    <a href="${album.external_urls.spotify}" target="_blank" class="album-link">Escuchar ↗</a>
+                </div>
             `;
             
             albumsGrid.appendChild(card);

@@ -1,7 +1,7 @@
 :root {
     --bg-color: #000000;
     --text-main: #f0f0f0;
-    --accent: #EE4036; 
+    --accent: #EE4036;
     --glass: rgba(15, 15, 15, 0.85); /* Fondo semitransparente oscuro */
     --glass-border: rgba(238, 64, 54, 0.3);
     --bar-height: 60px;
@@ -35,9 +35,9 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
 
 /* --- 1. ANIMACIÓN DE RUIDO (Noise) --- */
-.bg-noise { 
-    position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; 
-    pointer-events: none; z-index: 999; opacity: 0.06; 
+.bg-noise {
+    position: fixed; top: -50%; left: -50%; width: 200%; height: 200%;
+    pointer-events: none; z-index: 999; opacity: 0.06;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     animation: noiseAnim 0.5s steps(5) infinite;
 }
@@ -58,27 +58,45 @@ body {
 /* --- 2. PARALLAX & CAPAS DE FONDO --- */
 .parallax-wrapper { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; z-index: -1; overflow: hidden; }
 
-.bg-layer { 
-    position: absolute; top: -10%; left: -10%; width: 120%; height: 120%; 
-    background-size: cover; background-position: center; 
-    transition: opacity 1.5s ease; will-change: transform; 
+/*
+ * Guía para ajustar el fondo (el grabado):
+ * - background-size: Controla el tamaño.
+ *   - 'cover': Cubre todo el espacio, puede cortar la imagen. (Actual)
+ *   - 'contain': Muestra la imagen completa, puede dejar espacios vacíos.
+ *   - '120%': Un valor en porcentaje para hacer zoom.
+ *   - 'auto': Tamaño original de la imagen.
+ *
+ * - background-position: Controla la posición.
+ *   - 'center': Centrado. (Actual)
+ *   - 'top left': Arriba a la izquierda.
+ *   - '50% 20%': Coordenadas X e Y para un ajuste fino.
+ */
+.bg-layer {
+    position: absolute; top: -15%; left: -15%; width: 130%; height: 130%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: opacity 1.5s ease; will-change: transform;
 }
 
 /* Capa Grabado (Intro) */
-.bg-engraving { 
-    background-image: url('../assets/img/engraving_bg.png'); 
-    opacity: 0.3; mix-blend-mode: screen; 
-    filter: invert(1) grayscale(100%) contrast(1.2); 
+.bg-engraving {
+    background-image: url('../assets/img/engraving_bg.png');
+    opacity: 0.1; mix-blend-mode: screen;
+    filter: invert(1) grayscale(100%) contrast(1.2);
+    background-position: center 25%;
 }
 .bg-engraving.hidden { opacity: 0; }
 
 /* Capa Manuscrito (Formulario) */
-.bg-handwriting { 
-    background-image: url('../assets/img/handwriting_bg.jpeg'); 
-    opacity: 0; mix-blend-mode: exclusion; 
-    filter: invert(1) contrast(1.3); 
+.bg-handwriting {
+    background-image: url('../assets/img/handwriting_bg.jpeg');
+    opacity: 0; mix-blend-mode: exclusion;
+    filter: invert(1) contrast(1.3);
+    transform: rotate(-5deg);
+    background-position:80% 100%;
 }
-.bg-handwriting.visible { opacity: 0.25; }
+.bg-handwriting.visible { opacity: 0.10; }
 
 /* --- 3. EFECTO TINTA (Ink Bleed) --- */
 .ink-effect {
@@ -95,13 +113,13 @@ body {
 .delay-1 { transition-delay: 0.3s; }
 
 /* --- 4. PANTALLA DE INTRO (Overlay) --- */
-#intro-screen { 
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh; 
+#intro-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
     /* FIX: Fondo sólido degradado para tapar el contenido de atrás */
     background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(8,8,8,0.95) 90%);
-    display: flex; flex-direction: column; justify-content: center; align-items: center; 
-    z-index: 2000; 
-    transition: opacity 0.8s ease, visibility 0.8s ease; 
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    z-index: 2000;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
 .intro-sup {
@@ -123,11 +141,13 @@ body {
     margin-top: 0.5rem;
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.7); /* Resplandor */
     animation: fade-in-up 1s ease-in-out 0.4s both;
+    width: 100%;
+    text-align: center;
 }
 
 .intro-logo-img {
     display: block; /* Importante */
-    width: 300px; 
+    width: 300px;
     max-width: 80%; /* Para móviles */
     height: auto;
     margin: 2rem auto 2rem auto; /* Centrado */
@@ -140,47 +160,59 @@ body {
 
 
 /* --- 5. CONTENIDO PRINCIPAL (Oculto al inicio) --- */
-#main-content { 
-    opacity: 0; visibility: hidden; 
-    transition: opacity 1.5s ease, visibility 1.5s ease; 
-    width: 100%; display: flex; flex-direction: column; align-items: center; 
+#main-content {
+    opacity: 0; visibility: hidden;
+    transition: opacity 1.5s ease, visibility 1.5s ease;
+    width: 100%; display: flex; flex-direction: column; align-items: center;
 }
 
 /* HERO SECTION */
-.hero-section { 
-    min-height: 100vh; width: 100%; 
-    display: flex; flex-direction: column; align-items: center; justify-content: center; 
-    padding: 6rem 1rem 4rem 1rem; position: relative; 
+.hero-section {
+    min-height: 100vh; width: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 6rem 1rem 4rem 1rem; position: relative;
 }
 .titles-wrapper { text-align: center; margin-bottom: 3rem; }
+
+.main-logo {
+    display: block;
+    width: 150px;
+    margin: 0 auto 2rem;
+    filter: drop-shadow(0 0 15px rgba(238, 64, 54, 0.4));
+}
 
 .main-title {
     font-family: 'Syne';
     font-size: 3.5rem;
     margin-bottom: 0.5rem;
     text-transform: uppercase;
-    color: #fff;
+    /* Efecto de texto degradado y resplandor */
+    background: linear-gradient(180deg, #ffffff, #a0a0a0);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .main-subtitle { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.5rem; color: #fff; text-transform: uppercase; letter-spacing: 1px; }
 .main-subtitle .lighter { color: #888; font-weight: 400; }
 
 /* --- 6. TARJETA Y FORMULARIOS --- */
-.card-wrapper { 
-    background: var(--glass); border: 1px solid #333; padding: 2.5rem; width: 100%; max-width: 500px; 
-    backdrop-filter: blur(10px); box-shadow: 0 30px 60px rgba(0,0,0,0.9); 
-    transition: border-color 0.5s; 
+.card-wrapper {
+    background: var(--glass); border: 1px solid #333; padding: 2.5rem; width: 100%; max-width: 500px;
+    backdrop-filter: blur(10px); box-shadow: 0 30px 60px rgba(0,0,0,0.9);
+    transition: border-color 0.5s;
 }
-.art-image { 
-    width: 100%; aspect-ratio: 1; object-fit: cover; filter: grayscale(100%) contrast(1.2); 
-    margin-bottom: 2rem; transition: filter 1.5s ease; border: 1px solid #222; 
+.art-image {
+    width: 100%; aspect-ratio: 1; object-fit: cover; filter: grayscale(100%) contrast(1.2);
+    margin-bottom: 2rem; transition: filter 1.5s ease; border: 1px solid #222;
 }
 
 /* Estilos de Inputs */
 .form-desc { font-size: 0.85rem; line-height: 1.6; color: #ccc; margin-bottom: 1.5rem; text-align: center; }
 .input-group { position: relative; margin-bottom: 1.5rem; }
-.input-group input { 
-    width: 100%; background: transparent; border: none; border-bottom: 1px solid #444; 
+.input-group input {
+    width: 100%; background: transparent; border: none; border-bottom: 1px solid #444;
     color: white; padding: 12px 0; font-family: 'Space Mono'; font-size: 1rem; transition: 0.3s; border-radius: 0;
 }
 .input-group input:focus { border-bottom-color: var(--accent); outline: none; }
@@ -193,26 +225,26 @@ body {
 .checkbox-wrapper label { font-size: 0.75rem; color: #999; cursor: pointer; line-height: 1.4; }
 .checkbox-wrapper label:hover { color: #fff; }
 
-.submit-btn { 
-    width: 100%; background: #111; border: 1px solid #444; color: #fff; 
-    font-family: 'Syne'; font-weight: 700; padding: 1.2rem; cursor: pointer; 
-    text-transform: uppercase; margin-top: 1rem; transition: 0.3s; 
+.submit-btn {
+    width: 100%; background: #111; border: 1px solid #444; color: #fff;
+    font-family: 'Syne'; font-weight: 700; padding: 1.2rem; cursor: pointer;
+    text-transform: uppercase; margin-top: 1rem; transition: 0.3s;
 }
 .submit-btn:hover { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 15px rgba(238, 64, 54, 0.3); }
 
 /* --- 7. FIX VISIBILIDAD DE PASOS --- */
-#verify-form, #success-view { 
+#verify-form, #success-view {
     display: none; /* Ocultos por defecto para no montarse */
-    animation: fadeIn 0.8s forwards; 
+    animation: fadeIn 0.8s forwards;
 }
 
 /* Vista Éxito */
 .success-title { font-family: 'Syne'; font-size: 1.8rem; color: #fff; margin-bottom: 1rem; text-align: center; letter-spacing: -1px; }
 .success-text { font-size: 0.9rem; text-align: center; color: #888; margin-bottom: 2rem; line-height: 1.5; }
 
-.download-btn { 
-    display: block; width: 100%; padding: 1.2rem; margin-bottom: 1rem; 
-    background: var(--accent); color: #fff; text-decoration: none; text-transform: uppercase; 
+.download-btn {
+    display: block; width: 100%; padding: 1.2rem; margin-bottom: 1rem;
+    background: var(--accent); color: #fff; text-decoration: none; text-transform: uppercase;
     font-family: 'Syne'; font-weight: 700; text-align: center; transition: 0.3s;
 }
 .download-btn:hover { box-shadow: 0 0 20px rgba(238,64,54,0.5); transform: translateY(-2px); }
@@ -223,12 +255,12 @@ body {
 .legal-footer { margin-top: 2rem; border-top: 1px solid #222; padding-top: 1rem; text-align: center; opacity: 0.4; font-size: 0.6rem; line-height: 1.4; }
 
 /* --- 8. DISCOGRAFÍA (Slider Interactivo) --- */
-.discography-section { 
+.discography-section {
     width: 100%; max-width: 100%; /* Permitir ancho total */
-    margin: 4rem auto; 
+    margin: 4rem auto;
     padding: 4rem 0 0 0; /* Quitamos padding lateral del contenedor principal */
-    border-top: 1px solid #222; 
-    text-align: center; 
+    border-top: 1px solid #222;
+    text-align: center;
     overflow: hidden; /* Ocultar lo que se sale del slider */
 }
 
@@ -239,20 +271,20 @@ body {
 .albums-grid {
     display: flex; /* Alineación horizontal */
     overflow-x: auto; /* Scroll horizontal */
-    gap: 4rem; 
-    padding: 2rem 5%; 
-    
+    gap: 4rem;
+    padding: 2rem 5%;
+
     /* Ocultar Scrollbars */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none;  /* IE/Edge */
-    
+
     /* Cursor interactivo */
-    cursor: grab; 
+    cursor: grab;
     cursor: -webkit-grab;
-    
+
     /* Suavidad en móviles */
     -webkit-overflow-scrolling: touch;
-    
+
     width: 100%;
     margin: 0;
 }
@@ -272,50 +304,106 @@ body {
 
 /* Tarjetas */
 .album-card {
-    flex: 0 0 300px; /* Tamaño fijo, no encoger */
+    flex: 0 0 300px;
     width: 300px;
     text-align: left;
-    background: transparent;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    
-    /* Evitar selección de texto al arrastrar */
-    user-select: none; 
+    background: #080808; /* Fondo de tarjeta sutil */
+    border: 1px solid #222;
+    transition: background 0.3s, border-color 0.3s;
+    user-select: none;
     -webkit-user-select: none;
 }
-
-.album-card:hover { transform: translateY(-15px) scale(1.02); }
-
-.album-art { 
-    width: 100%; aspect-ratio: 1; object-fit: cover; margin-bottom: 1rem; 
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); filter: grayscale(50%); transition: 0.3s; 
-    
-    /* IMPORTANTE: Evitar arrastre de imagen fantasma */
-    pointer-events: none;
+.album-card:hover {
+    background: #101010;
+    border-color: #444;
 }
-.album-card:hover .album-art { filter: grayscale(0%); box-shadow: 0 10px 40px rgba(238, 64, 54, 0.2); }
 
-/* Reactivar eventos en los enlaces */
-.album-card a { pointer-events: auto; }
+.album-art-wrapper {
+    position: relative;
+    overflow: hidden; /* Clave para el efecto de zoom */
+}
 
-.album-title { font-family: 'Syne'; font-size: 1.2rem; color: #fff; margin-bottom: 0.2rem; }
-.album-date { font-family: 'Space Mono'; font-size: 0.8rem; color: var(--accent); text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
-.album-link { display: inline-block; font-size: 0.75rem; color: #666; text-decoration: none; border-bottom: 1px solid #333; transition: 0.3s; }
-.album-link:hover { color: #fff; border-color: #fff; }
+.album-art {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    display: block; /* Elimina espacio fantasma */
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    /* Se quita el filtro grayscale */
+}
+.album-card:hover .album-art {
+    transform: scale(1.05); /* Efecto de zoom sutil */
+}
+
+.album-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem 1rem;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    border-bottom-left-radius: 8px;
+}
+
+.album-type {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.album-info {
+    padding: 1.5rem;
+}
+
+.album-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.album-artist {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 1.5rem;
+}
+
+.album-link {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #ccc;
+    text-decoration: none;
+    border: 1px solid #444;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    transition: 0.3s;
+    text-transform: uppercase;
+}
+.album-link:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
 
 @media (max-width: 600px) {
     .album-card {
-        flex: 0 0 240px; 
+        flex: 0 0 240px;
         width: 240px;
     }
 }
 
 /* --- 9. BARRA INFERIOR --- */
-#ambient-bar { 
-    position: fixed; bottom: 0; left: 0; width: 100%; height: var(--bar-height); 
-    background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(10px); 
-    border-top: 1px solid rgba(238, 64, 54, 0.3); display: flex; align-items: center; justify-content: space-between; 
-    padding: 0 2rem; z-index: 1500; transform: translateY(100%); 
-    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1); 
+#ambient-bar {
+    position: fixed; bottom: 0; left: 0; width: 100%; height: var(--bar-height);
+    background: rgba(10, 10, 10, 0.9); backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(238, 64, 54, 0.3); display: flex; align-items: center; justify-content: space-between;
+    padding: 0 2rem; z-index: 1500; transform: translateY(100%);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 #ambient-bar.visible { transform: translateY(0); }
 
@@ -323,10 +411,10 @@ body {
 .live-indicator { width: 8px; height: 8px; background-color: var(--accent); border-radius: 50%; box-shadow: 0 0 8px var(--accent); animation: pulse 2s infinite; opacity: 0; transition: opacity 0.3s; }
 .live-indicator.active { opacity: 1; }
 
-.control-btn { 
-    background: none; border: none; cursor: pointer; color: white; 
-    display: flex; align-items: center; gap: 8px; font-family: 'Syne'; font-size: 0.8rem; 
-    text-transform: uppercase; transition: color 0.3s; 
+.control-btn {
+    background: none; border: none; cursor: pointer; color: white;
+    display: flex; align-items: center; gap: 8px; font-family: 'Syne'; font-size: 0.8rem;
+    text-transform: uppercase; transition: color 0.3s;
 }
 .control-btn:hover { color: var(--accent); }
 .control-icon { width: 12px; height: 12px; fill: currentColor; }
@@ -340,10 +428,68 @@ footer { padding: 2rem; opacity: 0.5; font-size: 0.8rem; text-align: center; }
 @keyframes fade-in-up { from { opacity: 0; } to { opacity: 1; } }
 
 /* RESPONSIVE */
-@media (max-width: 600px) { 
-    .logo, .main-title { font-size: 2.5rem; } 
+@media (max-width: 600px) {
+    .logo, .main-title { font-size: 2.5rem; }
     .intro-highlight { font-size: 2.5rem; }
-    #ambient-bar { padding: 0 1rem; } 
-    .intro-logo-img { width: 150px; } 
+    #ambient-bar { padding: 0 1rem; }
+    .intro-logo-img { width: 150px; }
     .card-wrapper { padding: 1.5rem; }
+}
+
+/* --- AJUSTES RESPONSIVE PERSONALIZADOS --- */
+@media (max-width: 768px) {
+    /* Para centrar el texto 'TEORIA DE MAICOL' en el inicio */
+    .titles-wrapper {
+        text-align: center;
+        width: 100%; /* Asegura que ocupe todo el ancho para centrar el texto */
+    }
+
+    .bg-layer {
+        background-size: 190%;
+        background-position: 50% 50%;
+    }
+
+    /*
+     * ---------------------------------------------------------------------
+     * AJUSTES DEL FONDO DEL MANUSCRITO EN MÓVIL
+     * ---------------------------------------------------------------------
+     * Aquí puedes calibrar la posición y el zoom del fondo del manuscrito
+     * para que se vea bien en pantallas pequeñas.
+     */
+    .bg-handwriting {
+        /*
+         * --- ¿CÓMO CALIBRAR EL FOCO? (Posición) ---
+         * Ajusta los valores de 'background-position'.
+         * El primer valor (X) mueve la imagen de izquierda a derecha.
+         *   - 0% es totalmente a la izquierda.
+         *   - 50% es en el centro.
+         *   - 100% es totalmente a la derecha.
+         * El segundo valor (Y) mueve la imagen de arriba a abajo.
+         *   - 0% es totalmente arriba.
+         *   - 50% es en el medio.
+         *   - 100% es totalmente abajo.
+         *
+         * EJEMPLO: Para centrarlo más, prueba 'background-position: 50% 50%;'
+         *          Para moverlo más hacia la esquina superior derecha: 'background-position: 80% 20%;'
+        */
+        background-position: 10% 0%; /* <-- ¡AJUSTA ESTOS VALORES! */
+
+        /*
+         * --- ¿CÓMO HACER ZOOM O ALEJAR? ---
+         * Ajusta el valor de 'background-size'.
+         *   - Un valor MAYOR a 100% (ej. '250%') hace ZOOM IN (acerca la imagen).
+         *   - Un valor MENOR (ej. '150%') hace ZOOM OUT (aleja la imagen).
+        */
+        background-size: 250%; /* <-- ¡AJUSTA ESTE VALOR PARA EL ZOOM! */
+    }
+
+    /*
+     * CLASE ADICIONAL PARA ZOOM
+     * Si quieres un control de zoom más dinámico (por ejemplo, con JavaScript),
+     * puedes crear una clase como esta y añadirla al elemento del fondo.
+     * Al añadir la clase '.background-zoom', la imagen se hará más grande.
+    */
+    .bg-handwriting.background-zoom {
+        background-size: 300%;
+    }
 }
